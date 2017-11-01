@@ -1,8 +1,7 @@
 #### CDA ####
 ##### Çok Değişkenli İstatistiksel Analiz Yöntemleri (Multivariate Statistical Analysis Techniques) #####
 
-###Çok Değişkenli İstatistiksel Analiz yöntemlerinin SPSS, R ve SAS programlarında uygulanması.
-###The application of multivariate analss methos in SPSS, R nad SAS programmes.
+###Çok Değişkenli İstatistiksel Analiz yöntemlerinin SPSS, R ve SAS programlarında uygulanması. (The application of multivariate analysis methos in SPSS, R nad SAS programs.)
 
 ## 1. MANOVA (Multivariate Analysis of Variance)
 ## 2. Temel Bileşenler Analizi (Principal Component Analysis, PCA)
