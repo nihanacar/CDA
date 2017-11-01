@@ -1,7 +1,12 @@
-# CDA-Manova
-Manova'da kullanılan veriler
-1.Manova_toprak.sav
-2.mevki_departman.sav
-3.telefon_isletim.xls
-Manova için R-scripti
-Manova için SAS scripti
+#### CDA ####
+##### Çok Değişkenli İstatistiksel Analiz Yöntemleri (Multivariate Statistical Analysis Techniques) #####
+
+###Çok Değişkenli İstatistiksel Analiz yöntemlerinin SPSS, R ve SAS programlarında uygulanması.
+###The application of multivariate analss methos in SPSS, R nad SAS programmes.
+
+## 1. MANOVA (Multivariate Analysis of Variance)
+## 2. Temel Bileşenler Analizi (Principal Component Analysis, PCA)
+## 3. Faktör Analizi (Factor Analysis)
+## 4. Diskriminant Analizi (Discriminant Analysis) 
+## 5. Lojistik Regresyon (Logistic Regression)
+## 6. Kümeleme Analizi (Cluster Analysis)
