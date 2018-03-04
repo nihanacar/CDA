@@ -1,6 +1,7 @@
 ###############################################################
 ######                                                    #####
-###### SCRIPT:   MANOVA                                   #####
+###### SCRIPT:   Multivariate Analysis of Variance        #####
+#######          (MANOVA)                                 #####
 ######                                                    #####
 ######       Nihan Acar-Denizli, Asst. Prof.              #####
 ######       Mimar Sinan Güzel Sanatlar Üniversitesi      #####
