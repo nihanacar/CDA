@@ -1,6 +1,10 @@
-/* SAS SCRIPT: Factor Analysis     (data set: "domes") */
-/*                  Nihan Acar-Denizli                 */
-/*                  Asst. Prof. Dr.                    */
+/****************************************************************/
+ /*      SAS Script: FACTOR ANALYSIS (FA)                       */
+ /*                                                             */
+ /*                                                             */
+ /*                      Nihan Acar-Denizli, Asst. Prof.        */
+ /*                      Mimar Sinan Güzel Sanatlar Ünv.        */
+ /**************************************************************
 
 
 proc factor data=domes /*name of data file*/
