@@ -1,3 +1,7 @@
+/* SAS SCRIPT: Factor Analysis     (data set: "domes") */
+/*                  Nihan Acar-Denizli                 */
+/*                  Asst. Prof. Dr.                    */
+
 
 proc factor data=domes /*name of data file*/
  nobs=397 /*number of observations*/
