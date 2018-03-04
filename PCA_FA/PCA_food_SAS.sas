@@ -1,6 +1,10 @@
-/* SAS SCRIPT: Principal Components Analysis (PCA) */
-/*                  Nihan Acar-Denizli             */
-/*                  Asst. Prof. Dr.                */
+/****************************************************************/
+ /*      SAS Script: PRINCIPAL COMPONENT ANALYSIS (PCA)         */
+ /*                                                             */
+ /*                                                             */
+ /*                      Nihan Acar-Denizli, Asst. Prof.        */
+ /*                      Mimar Sinan Güzel Sanatlar Ünv.        */
+ /****************************************************************/
 
 
 data food;
