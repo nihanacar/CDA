@@ -1,7 +1,16 @@
+##############################################
+######                                   #####
+###### R SCRIPT: Discriminant Analysis   #####
+######           Logistic Regression     #####
+######                                   ##### 
+######             Nihan Acar-Denizli    #####
+######                 Asst. Prof. Dr.   #####
+##############################################
+
 #install.packages("Rcmdr")
 #library(Rcmdr)
 
-#SPSS'ten veri çekme
+#SPSS'ten veri Ã§ekme
 library(foreign)
 skulls<-read.spss("skulls.sav",to.data.frame="TRUE")
 
@@ -9,7 +18,7 @@ View(skulls)
 str(skulls)
 attach(skulls)
 
-#iki kategori için Diskriminant Analizi (lda fonksiyonu kullanilarak) 
+#iki kategori iÃ§in Diskriminant Analizi (lda fonksiyonu kullanilarak) 
 ?lda
 install.packages("MASS")
 library(MASS)
@@ -24,10 +33,10 @@ skullpred<-predict(skullda)
 names(skullpred)
 #Sinif Tahminleri 
 skullpred$class
-#Gözlemlere ait Sonsal Olasiliklar 
+#GÃ¶zlemlere ait Sonsal Olasiliklar 
 skullpred$posterior
 
-#Çapraz Çizelge Tablosunun olusturulmasi
+#Ã‡apraz Ã‡izelge Tablosunun olusturulmasi
 tablo<-table(skulls$type,skullpred$class)
 tablo
 
@@ -35,16 +44,16 @@ tablo
 classrate<-sum(diag(tablo))/sum(tablo)
 classrate
 
-#Gruplara göre dogru siniflama oranlari (satýrlar üzerinden olasýlýk hesabý)
+#Gruplara gÃ¶re dogru siniflama oranlari (satÄ±rlar Ã¼zerinden olasÄ±lÄ±k hesabÄ±)
 diag(prop.table(tablo, 1))
 
-#Toplam doðru sýnýflama oraný 
+#Toplam doÄŸru sÄ±nÄ±flama oranÄ± 
 sum(diag(prop.table(tablo)))
 
 #Nisbi sans kriteri p1^2+p^2
 skullda$prior[1]^2 + skullda$prior[2]^2
 
-#Orjinal gruplar ile Tahmin edilen gruplarýn karþýlaþtýrýlmasý
+#Orjinal gruplar ile Tahmin edilen gruplarÄ±n karÅŸÄ±laÅŸtÄ±rÄ±lmasÄ±
 ?cbind
 comp<-cbind(skulls$type,skullpred$class)
 comp
@@ -62,9 +71,9 @@ skullstep$model
 plot(skullstep)
 skullstep$result.pm
 
-#######################Çok Gruplu Diskriminant###############################
+#######################Ã‡ok Gruplu Diskriminant###############################
 
-#Noktanýn Eksik Gözlem olarak tanýmlanmasý gerek!
+#NoktanÄ±n Eksik GÃ¶zlem olarak tanÄ±mlanmasÄ± gerek!
 install.packages("readxl")
 library(readxl)
 araba <- read_excel("cars.xls")
@@ -72,7 +81,7 @@ View(araba)
 araba$Origin<-as.factor(araba$Origin)
 summary(araba)
 
-#Deðiþken içinde bulunan noktanýn Eksik Gözlem olarak tanýmlanmasý gerek!
+#DeÄŸiÅŸken iÃ§inde bulunan noktanÄ±n Eksik GÃ¶zlem olarak tanÄ±mlanmasÄ± gerek!
 araba <- read_excel("cars.xls",na=".") #,rownames=FALSE, header=TRUE, na=".", sheet="Sayfa1", stringsAsFactors=TRUE)
 View(araba)
 head(araba)
@@ -95,7 +104,7 @@ carpred$class
 carpred$posterior
 
 
-#Çapraz Çizelge Tablosunun olusturulmasi
+#Ã‡apraz Ã‡izelge Tablosunun olusturulmasi
 
 tablo<-table(araba$Origin,carpred$class)
 tablo
@@ -104,16 +113,16 @@ tablo
 classrate<-sum(diag(tablo))/sum(tablo)
 classrate
 
-#Gruplara göre dogru siniflama oranlari
+#Gruplara gÃ¶re dogru siniflama oranlari
 diag(prop.table(tablo, 1))
 
-#Toplam doðru sýnýflama oraný
+#Toplam doÄŸru sÄ±nÄ±flama oranÄ±
 sum(diag(prop.table(tablo)))
 
 #Nisbi sans kriteri p1^2+p^2
 carlda$prior[1]^2 + carlda$prior[2]^2+carlda$prior[3]^2
 
-#Orjinal gruplar ile Tahmin edilen gruplarýn karþýlaþtýrýlmasý
+#Orjinal gruplar ile Tahmin edilen gruplarÄ±n karÅŸÄ±laÅŸtÄ±rÄ±lmasÄ±
 comp<-cbind(araba$Origin,carpred$class)
 comp
 
@@ -168,9 +177,9 @@ R.cs
 R.n<-R.cs /(1-(exp(-(skull.glm$null.deviance/N))))
 R.n
 
-#Model katsayilarinin exponential alinmis hali ve güven araliklari
+#Model katsayilarinin exponential alinmis hali ve gÃ¼ven araliklari
 exp(coef(skull.glm))
-#exp(confint(coef(skull.glm)))#parm="faceheight ile tek bir degiskene ait güven araligi hesaplanabilir.
+#exp(confint(coef(skull.glm)))#parm="faceheight ile tek bir degiskene ait gÃ¼ven araligi hesaplanabilir.
 
 #Atama Tablosu
 typepred<-fitted(skull.glm)
@@ -178,7 +187,7 @@ thresh  <- 0.5
 typefac<- cut(typepred, breaks=c(-Inf, thresh, Inf), labels=c("A", "B"))
 cTab <- table(skulls$type, typefac)
 cTab
-#Toplam Dogru Atanma Yüzdesi
+#Toplam Dogru Atanma YÃ¼zdesi
 sum(diag(cTab)) / sum(cTab)
 
 #Stepwise Lojistik Regresyon
@@ -195,7 +204,7 @@ typefacs<- cut(typepreds, breaks=c(-Inf, thresh, Inf), labels=c("A", "B"))
 cTabs <- table(skulls$type, typefacs)
 cTabs
 
-##################################### Plasma data örnegi ("A Handbook of Statistical Analyses Using R-Brian Everitt")#########################
+##################################### Plasma data Ã¶rnegi ("A Handbook of Statistical Analyses Using R-Brian Everitt")#########################
 install.packages("HSAUR2")
 data("plasma",package="HSAUR2")
 layout(matrix(1:2, ncol=2))
@@ -247,17 +256,17 @@ p
 exp(coef(loj_car))
 
 
-###Arabalarýn lojistik regresyona göre sýnýflandýrýlmasý
+###ArabalarÄ±n lojistik regresyona gÃ¶re sÄ±nÄ±flandÄ±rÄ±lmasÄ±
 #Perform classification
 ?predict.multinom
 pred_org<- predict(loj_car, araba[,1:3])
 car_tab<- table(araba$Origin, pred_org)
 car_tab
 
-#Gruplara göre dogru siniflama oranlari
+#Gruplara gÃ¶re dogru siniflama oranlari
 diag(prop.table(car_tab, 1))
 
-#Toplam doðru sýnýflama oraný
+#Toplam doÄŸru sÄ±nÄ±flama oranÄ±
 sum(diag(prop.table(car_tab)))
 
 
