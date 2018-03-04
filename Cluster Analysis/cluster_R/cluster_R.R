@@ -1,3 +1,11 @@
+###############################################################
+######                                                    #####
+###### SCRIPT:   CLUSTER ANALYSIS                         #####
+######                                                    #####
+######       Nihan Acar-Denizli, Asst. Prof.              #####
+######       Mimar Sinan GÃ¼zel Sanatlar Ãœniversitesi      #####
+###############################################################
+
 ##### FOOD NUTRIENT VERI SETI #####
 #install.packages("Rcmdr")
 #library(Rcmdr)
@@ -9,11 +17,11 @@ nutrient<-read.spss("food nutrient data.sav",to.data.frame="TRUE")
 
 # Verinin Hazirlanma Asamasi
 View(nutrient)
-nutrient <- na.omit(nutrient) # eksik gözlemlerin çikarilmasi
+nutrient <- na.omit(nutrient) # eksik gÃ¶zlemlerin Ã§ikarilmasi
 #nutrient<-nutrient[,-1]
-#mydata <- scale(mydata) # gerektiðinde degiskenleri standardize etmek için
+#mydata <- scale(mydata) # gerektiÃ°inde degiskenleri standardize etmek iÃ§in
 
-## Küme sayisinin belirlenmesi (R in Action (2nd ed): Chapter 16) 
+## KÃ¼me sayisinin belirlenmesi (R in Action (2nd ed): Chapter 16) 
 ##(Within groups sum of squares vs no of clusters)
 
 wss <- (nrow(nutrient)-1)*sum(apply(nutrient,2,var))
@@ -22,37 +30,37 @@ for (i in 2:15) wss[i] <- sum(kmeans(nutrient,
 plot(1:15, wss, type="b", xlab="Number of Clusters",
      ylab="Within groups sum of squares")
 
-# Hiyerarsik Kümeleme
+# Hiyerarsik KÃ¼meleme
 d <- dist(nutrient, method = "euclidean") # uzaklik matrisi
 ?hclust
 fit <- hclust(d, method="complete") 
-plot(fit) # Dendogram çizimi
+plot(fit) # Dendogram Ã§izimi
 groups <- cutree(fit, k=5) # cut tree into k clusters
-# k kümeyi belli eden dikdörtgenlerin çizimi 
+# k kÃ¼meyi belli eden dikdÃ¶rtgenlerin Ã§izimi 
 rect.hclust(fit, k=5, border="green")
 
-#Aykýrý deðerin çýkarýlmasý ile sýnýflar tekrar oluþturulabilir
+#AykÃ½rÃ½ deÃ°erin Ã§Ã½karÃ½lmasÃ½ ile sÃ½nÃ½flar tekrar oluÃ¾turulabilir
 nutrient<-nutrient[-25,]
 
-# K-Means Kümeleme Analizi
-k=3 #küme sayisi
+# K-Means KÃ¼meleme Analizi
+k=3 #kÃ¼me sayisi
 ?kmeans
-fit <- kmeans(nutrient, k) # k küme sayisi
+fit <- kmeans(nutrient, k) # k kÃ¼me sayisi
 names(fit)
-# küme ortalamalarinin hesabi 
+# kÃ¼me ortalamalarinin hesabi 
 aggregate(nutrient,by=list(fit$cluster),FUN=mean)
-# Gözlemin atandigi sinifi ekliyor veri setine
+# GÃ¶zlemin atandigi sinifi ekliyor veri setine
 nutrient <- data.frame(nutrient, fit$cluster)
 View(nutrient)
 
-#K means ile seçilen küme sayýsýna ait gözlemlerin sýnýflanmasýný gösteriyor.
+#K means ile seÃ§ilen kÃ¼me sayÃ½sÃ½na ait gÃ¶zlemlerin sÃ½nÃ½flanmasÃ½nÃ½ gÃ¶steriyor.
 library(cluster)
 names(fit)
 ?clusplot
 clusplot(nutrient, fit$cluster, color=TRUE, shade=TRUE,
          labels=2, lines=0)
 
-#ilk iki temel bileþen ile sýnýflama
+#ilk iki temel bileÃ¾en ile sÃ½nÃ½flama
 install.packages("fpc")
 library(fpc)
 ?plotcluster
@@ -64,24 +72,24 @@ wine<-read.spss("sarap.sav",to.data.frame="TRUE")
 View(wine)
 wine<-wine[,1:5]
 
-# Hiyerarsik Kümeleme
+# Hiyerarsik KÃ¼meleme
 d <- dist(wine, method = "euclidean") # uzaklik matrisi
 winefit <- hclust(d, method="ward.D") 
-plot(winefit) # Dendogram çizimi
+plot(winefit) # Dendogram Ã§izimi
 groups <- cutree(winefit, k=5)# cut tree into k clusters
-# Kümeleri belli eden dikdörtgenlerin çizimi 
+# KÃ¼meleri belli eden dikdÃ¶rtgenlerin Ã§izimi 
 rect.hclust(winefit, k=5, border="red")
 
-# K-Means Kümeleme Analizi
-k=4 #küme sayisi
-fit <- kmeans(wine, k) # k küme sayisi
+# K-Means KÃ¼meleme Analizi
+k=4 #kÃ¼me sayisi
+fit <- kmeans(wine, k) # k kÃ¼me sayisi
 names(fit)
 fit$centers
 
-# küme ortalamalarinin hesabi 
+# kÃ¼me ortalamalarinin hesabi 
 #aggregate(wine,by=list(fit$cluster),FUN=mean)
 
-# Gözlemin atandigi sinifi ekliyor veri setine
+# GÃ¶zlemin atandigi sinifi ekliyor veri setine
 wine <- data.frame(wine, fit$cluster)
 wine
 
