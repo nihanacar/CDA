@@ -1,11 +1,11 @@
-##############################################
-######                                   #####
-###### R SCRIPT: Discriminant Analysis   #####
-######           Logistic Regression     #####
-######                                   ##### 
-######             Nihan Acar-Denizli    #####
-######                 Asst. Prof. Dr.   #####
-##############################################
+##############################################################
+######                                                   #####
+###### R SCRIPT: Discriminant Analysis                   #####
+######           Logistic Regression                     #####
+######                                                   ##### 
+######           Nihan Acar-Denizli, Asst. Prof.         #####
+######           Mimar Sinan Güzel Sanatlar Üniversitesi ##### 
+##############################################################
 
 #install.packages("Rcmdr")
 #library(Rcmdr)
