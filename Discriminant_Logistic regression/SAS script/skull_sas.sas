@@ -1,3 +1,12 @@
+/****************************************************************/
+ /*      SAS Script: DISCRIMINANT ANALYSIS                      */
+ /*                  LOGISTIC REGRESSION ANALYSIS               */
+ /*                                                             */
+ /*                      Nihan Acar-Denizli, Asst. Prof.        */
+ /*                      Mimar Sinan Güzel Sanatlar Ünv.        */
+ /****************************************************************/
+
+
 proc discrim data=skulls pool=test simple manova wcov crossvalidate;
 class type;
 var lenght width height faceheight facewidth;
