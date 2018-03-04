@@ -1,3 +1,8 @@
+/* SAS SCRIPT: Principal Components Analysis (PCA) */
+/*                  Nihan Acar-Denizli             */
+/*                  Asst. Prof. Dr.                */
+
+
 data food;
    input city & $13. Bread Burger Milk Oranges Tomatoes;
    datalines;
