@@ -1,11 +1,11 @@
-############################################
-######                                 #####
-###### SCRIPT:  TEMEL BÝLEÞENLER(PCA)  #####
-######          FAKTÖR ANALÝZÝ         #####             
-######                                 #####
-######             Nihan Acar-Denizli  #####
-######                 Asst. Prof. Dr. #####
-############################################
+#########################################################
+######                                              #####
+###### SCRIPT:  Principal Components Analysis (PCA) #####
+######          Factor Analysis                     #####             
+######                                              #####
+######             Nihan Acar-Denizli               #####
+######                 Asst. Prof. Dr.              #####
+#########################################################
 
 ###Veri seti "Food-Price"###
 library(Rcmdr)
@@ -15,18 +15,18 @@ str(food)
 library(foreign)
 food<-read.spss("food_price_data.sav",to.data.frame="TRUE")
 
-################################# TBA UYGULANABÝLÝRLÝÐÝ (BARTLETT TEST VE KMO INDEKSI)######################
+################################# TBA UYGULANABÃLÃRLÃÃÃ (BARTLETT TEST VE KMO INDEKSI)######################
 
-###### Bartlett Küresellik Testi ####
+###### Bartlett KÃ¼resellik Testi ####
 ###### Bartlett's Test of Spherecity####
 
 install.packages("psych")
 library(psych)
 ?cortest.bartlett
-#Besin fiyatlarý korelasyon matrisi
+#Besin fiyatlarÃ½ korelasyon matrisi
 R<-cor(food[,2:6])
 print(R)
-#Gözlem sayýsý (n)
+#GÃ¶zlem sayÃ½sÃ½ (n)
 n<-nrow(food)
 n
 ##Bartlett test sonucu###
@@ -49,22 +49,22 @@ kmo <- function(x)
   return(list(KMO=KMO, MSA=MSA))
 }
 
-#KMO deðeri
+#KMO deÃ°eri
 kmo(food[,2:6])
 
-####################################### TEMEL BÝLEÞENLER ANALÝZÝ ##########################################3
+####################################### TEMEL BÃLEÃžENLER ANALÃZÃ ##########################################3
 ?princomp
 pca<-princomp(food[,2:6],cor=TRUE,scores=TRUE)#,cutoff=0.01)
 
-#Bileþenlerce Açýklanan Varyans Oranlarý#
+#BileÃ¾enlerce AÃ§Ã½klanan Varyans OranlarÃ½#
 summary(pca)
 names(summary(pca))
 summary(pca)$loadings
 
-#Özdeðerlerin Hesaplanmasý#
+#Ã–zdeÃ°erlerin HesaplanmasÃ½#
 s2<-(summary(pca)$sdev)^2
-s2 #özdeðerler
-sum(s2) #Korelasyon matrisi kullanýldýðýnda özdeðerlerin toplamý deðiþken sayýsýna eþit (deðiþkenler standardize ediliyor!)
+s2 #Ã¶zdeÃ°erler
+sum(s2) #Korelasyon matrisi kullanÃ½ldÃ½Ã°Ã½nda Ã¶zdeÃ°erlerin toplamÃ½ deÃ°iÃ¾ken sayÃ½sÃ½na eÃ¾it (deÃ°iÃ¾kenler standardize ediliyor!)
 
 #Scree Plot#
 plot(pca)
@@ -79,16 +79,16 @@ pca$scores
 which.min(pca$scores[,1])
 which.min(pca$scores[,2])
 
-### Pahalýlýk Ýndeksi ###
+### PahalÃ½lÃ½k Ãndeksi ###
 indeks<- apply(pca$scores[,1:2],1,sum)
 indeks
 which.min(apply(pca$scores[,1:2],1,sum))
 
-####################Kovaryans matrisi kullanýlarak "princomp" ve "prcomp" fonksiyonlarýnýn sonuçlarý!#############
-pca_cov<-princomp(food[,2:6],scores=TRUE) #Korelasyon matrisi için cor=TRUE eklenmeli!
+####################Kovaryans matrisi kullanÃ½larak "princomp" ve "prcomp" fonksiyonlarÃ½nÃ½n sonuÃ§larÃ½!#############
+pca_cov<-princomp(food[,2:6],scores=TRUE) #Korelasyon matrisi iÃ§in cor=TRUE eklenmeli!
 summary(pca_cov)
 names(pca_cov)
-pca_cov$loadings ##0.1'den küçük göstermiyor defaultta!
+pca_cov$loadings ##0.1'den kÃ¼Ã§Ã¼k gÃ¶stermiyor defaultta!
 biplot(pca_cov)
 pca_cov$scores
 
@@ -100,16 +100,16 @@ pca_pr_cov$rotation
 pca_pr_cov$x #scores
 biplot(pca_pr_cov)
 
-#Bileþenlere göre en pahalý þehirler (Pozitif yüklü olduðundan max score alýnýyor!)
+#BileÃ¾enlere gÃ¶re en pahalÃ½ Ã¾ehirler (Pozitif yÃ¼klÃ¼ olduÃ°undan max score alÃ½nÃ½yor!)
 which.max(pca_pr_cov$x[,1])
 which.max(pca_pr_cov$x[,2])
 
-### Pahalýlýk Ýndeksi 2 (cov. matrisine göre) ###
+### PahalÃ½lÃ½k Ãndeksi 2 (cov. matrisine gÃ¶re) ###
 indeks2<- apply(pca_pr_cov$x[,1:2],1,sum)
 indeks2
 which.max(apply(pca_pr_cov$x[,1:2],1,sum))
 
-########################## FAKTÖR ANALÝZÝ ##################################################
+########################## FAKTÃ–R ANALÃZÃ ##################################################
 
 #domes<-read_excel("domes_factor.xls")
 domes<-read.spss("domes_factor.sav",to.data.frame="TRUE")
@@ -117,27 +117,27 @@ domes<-read.spss("domes_factor.sav",to.data.frame="TRUE")
 veri<-domes[,5:13]
 
 ?factanal
-fit <- factanal(veri,3,rotation="none") #eksik gözlem olduðundan hata veriyor
+fit <- factanal(veri,3,rotation="none") #eksik gÃ¶zlem olduÃ°undan hata veriyor
 
-#eksik gözlemler dýþarýda býrakýlarak korelasyon matrisi hesabý!
+#eksik gÃ¶zlemler dÃ½Ã¾arÃ½da bÃ½rakÃ½larak korelasyon matrisi hesabÃ½!
 summary(veri)
 ?cor
 R<-cor(veri,use="complete.obs")
 R
 
-#Faktör Analizi
+#FaktÃ¶r Analizi
 fit <- factanal(veri, 3, covmat=R, rotation="none")
 names(fit)
-fit$factors #faktör sayýsý
-fit$loadings #deðiþkenlerin faktördeki yükü
+fit$factors #faktÃ¶r sayÃ½sÃ½
+fit$loadings #deÃ°iÃ¾kenlerin faktÃ¶rdeki yÃ¼kÃ¼
 print(fit, digits=2, cutoff=.3, sort=TRUE)
 
-#Varimax Dönüþümü ile
+#Varimax DÃ¶nÃ¼Ã¾Ã¼mÃ¼ ile
 fit_var <- factanal(veri, 3, covmat=R, rotation="varimax")
-yuk<-fit_var$loadings[,1:3] #Deðiþkenlerin faktördeki yükleri
-print(fit_var, digits=2, cutoff=.3, sort=TRUE) #0.3 deðerinden itibaren kesilmiþ yükler!
+yuk<-fit_var$loadings[,1:3] #DeÃ°iÃ¾kenlerin faktÃ¶rdeki yÃ¼kleri
+print(fit_var, digits=2, cutoff=.3, sort=TRUE) #0.3 deÃ°erinden itibaren kesilmiÃ¾ yÃ¼kler!
 
-#Deðiþkenlerin Faktör Yükü Grafiði
+#DeÃ°iÃ¾kenlerin FaktÃ¶r YÃ¼kÃ¼ GrafiÃ°i
 plot(yuk,type="n") # set up plot
 text(yuk,labels=names(veri),cex=.7)
 
