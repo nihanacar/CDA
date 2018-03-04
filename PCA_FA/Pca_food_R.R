@@ -1,11 +1,11 @@
-##########################################################
-######                                               #####
-###### R SCRIPT: Principal Components Analysis (PCA) #####
-######           Factor Analysis                     #####             
-######                                               #####
-######             Nihan Acar-Denizli                #####
-######                 Asst. Prof. Dr.               #####
-##########################################################
+###############################################################
+######                                                   ######
+###### R SCRIPT: Principal Components Analysis (PCA)     ######
+######           Factor Analysis                         ######             
+######                                                   ######
+######           Nihan Acar-Denizli, Asst. Prof.         ######
+######           Mimar Sinan Güzel Sanatlar Üniversitesi ######
+###############################################################
 
 ###Veri seti "Food-Price"###
 library(Rcmdr)
