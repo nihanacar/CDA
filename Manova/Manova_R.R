@@ -1,39 +1,39 @@
-############################################
-######                                 #####
-###### SCRIPT:   MANOVA                #####
-######                                 #####
-######             Nihan Acar-Denizli  #####
-######                 Asst. Prof. Dr. #####
-############################################
+###############################################################
+######                                                    #####
+###### SCRIPT:   MANOVA                                   #####
+######                                                    #####
+######       Nihan Acar-Denizli, Asst. Prof.              #####
+######       Mimar Sinan GÃ¼zel Sanatlar Ãœniversitesi      #####
+###############################################################
 
-###Baska formatta veri okumak için R Commander kullanilanilabilir.###
+###Baska formatta veri okumak iÃ§in R Commander kullanilanilabilir.###
 ### Use R Commander to read different format data. ####
 #install.packages("Rcmdr")
 library(Rcmdr)
 
-#### Excel verisi okumak için "readxl" paketi kullanilabilir. #####
+#### Excel verisi okumak iÃ§in "readxl" paketi kullanilabilir. #####
 #### Use "readxl" package to read xls/xlsx files  #####
 #install.packages("readxl")
 library(readxl)
 ?read_excel
 tel_isletim<-read_excel("telefon_isletim.xls")
 
-#### Spss verisi okumak için "foreign" paketi kullanilabilir. #####
+#### Spss verisi okumak iÃ§in "foreign" paketi kullanilabilir. #####
 #### Use "foreign" package to read spss files #####
 library(foreign)
 toprak<-read.spss("Manova_toprak.sav",to.data.frame="TRUE")
 
-#### ÖRNEK 1: "Toprak" Veri Seti ####
+#### Ã–RNEK 1: "Toprak" Veri Seti ####
 ####Veri seti genel bilgi (The structure of the data frame) #####
 str(toprak)
 head(toprak)
 attach(toprak)
 
-####Faktör degisken kodlamalari (The levels of categorical variables) ####
+####FaktÃ¶r degisken kodlamalari (The levels of categorical variables) ####
 levels(ilce)
 levels(Bitkituru)
 
-### Çok Degiskenli Normallik Testleri (Multivariate Normality Tests) ####
+### Ã‡ok Degiskenli Normallik Testleri (Multivariate Normality Tests) ####
 #install.packages("mvnormtest")
 library(mvnormtest)
 deg<-toprak[,1:4]
@@ -67,16 +67,16 @@ library(car)
 leveneTest(lnpot ~ ilce*bitkituru, data=toprak)
 leveneTest(lnfosfor ~ ilce*bitkituru, data=toprak)
 leveneTest(lnkalsiyum ~ ilce*bitkituru, data=toprak)
-leveneTest(lnmagnezyum ~ ilce*bitkituru, data=toprak) #varyans homojenliði saðlanmýyor!
+leveneTest(lnmagnezyum ~ ilce*bitkituru, data=toprak) #varyans homojenliÃ°i saÃ°lanmÃ½yor!
 
-### Degiskenlere Göre Ortalamalar ve Ortalama Çizimleri (The Mean Plots of the Variables) ########
+### Degiskenlere GÃ¶re Ortalamalar ve Ortalama Ã‡izimleri (The Mean Plots of the Variables) ########
 means_ilce <- aggregate(deg1,list(ilce), mean)
 means_ilce
 
 means_bitki<- aggregate(deg1,list(Bitkituru), mean)
 means_bitki
 
-# Tek deðiþkene göre ortalama
+# Tek deÃ°iÃ¾kene gÃ¶re ortalama
 meant<-tapply(deg1[,1],ilce,mean)
 meant
 
@@ -107,22 +107,22 @@ summary(lntoprak_man, test = "Roy")
 ### Test of Between Subjects ###
 summary.aov(lntoprak_man)
 
-########## Çoklu Karsilastirmalar (Multiple Comparisons) #################
-#lnpotasyum için
+########## Ã‡oklu Karsilastirmalar (Multiple Comparisons) #################
+#lnpotasyum iÃ§in
 lnpot_aov <- aov(lnpot ~ ilce, data = toprak)
 TukeyHSD(lnpot_aov, "ilce")
 
 lnpot_aov <- aov(lnpot ~ Bitkituru, data = toprak)
 TukeyHSD(lnpot_aov, "bitkituru")
 
-#lnkalsiyum için
+#lnkalsiyum iÃ§in
 lnkal_aov <- aov(lnkalsiyum~ ilce, data = toprak)
 TukeyHSD(lnkal_aov, "ilce")
 
 lnkal_aov <- aov(lnkalsiyum ~ Bitkituru, data = toprak)
 TukeyHSD(lnkal_aov, "bitkituru")
 
-### Bitki türü  ve ilce için Etkilesim Grafikleri (Interaction Plots) ###
+### Bitki tÃ¼rÃ¼  ve ilce iÃ§in Etkilesim Grafikleri (Interaction Plots) ###
 ?interaction.plot
 ?legend
 interaction.plot(ilce,Bitkituru,lnpot, fun=mean, type="b", legend=TRUE)
@@ -131,9 +131,9 @@ interaction.plot(Bitkituru,ilce,lnkalsiyum, fun=mean, type="l", legend=TRUE)
 ##############################################################################
 ##############################################################################
 
-#### ÖRNEK 2: Mevki-Departman Veri Seti ####
+#### Ã–RNEK 2: Mevki-Departman Veri Seti ####
 
-#### Mevki-Dep Veri Setinin Spss'ten R'a çekilmesi ####
+#### Mevki-Dep Veri Setinin Spss'ten R'a Ã§ekilmesi ####
 mevkidep<- read.spss("mevki_departman.sav",to.data.frame=TRUE)
 
 str(mevkidep)
@@ -146,7 +146,7 @@ summary.aov(mevkidep_man)
 
 ###Coklu Karsilastirmalar (Multiple Comparisons) ###
 
-##Mevki için
+##Mevki iÃ§in
 tatmin_mev <- aov(tatmin ~ mevki, data = mevkidep)
 TukeyHSD(tatmin_mev, "mevki")
 
@@ -156,7 +156,7 @@ TukeyHSD(sahip_mev, "mevki")
 kalicilik_mev <- aov(kalicilik ~ mevki, data = mevkidep)
 TukeyHSD(kalicilik_mev, "mevki")
 
-###Departman için 
+###Departman iÃ§in 
 tatmin_dep <- aov(tatmin ~ departman, data = mevkidep)
 TukeyHSD(tatmin_dep, "departman")
 
@@ -166,7 +166,7 @@ TukeyHSD(sahip_dep, "departman")
 kalici_dep <- aov(kalicilik ~ departman, data = mevkidep)
 TukeyHSD(kalici_dep, "departman")
 
-### Mevki ve Departmana Göre Etkilesim Grafikleri ###
+### Mevki ve Departmana GÃ¶re Etkilesim Grafikleri ###
 #op<-par(mfrow=c(3,1))
 interaction.plot(mevki,departman, tatmin, fun=mean, type="l", legend=TRUE)
 interaction.plot(mevki,departman,sahiplenme, fun=mean, type="l", legend=TRUE)
