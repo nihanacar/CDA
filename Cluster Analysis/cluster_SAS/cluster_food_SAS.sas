@@ -1,26 +1,34 @@
+/****************************************************************/
+ /*      SAS Script: CLUSTER ANALYSIS                           */
+ /*                                                             */
+ /*                                                             */
+ /*                      Nihan Acar-Denizli, Asst. Prof.        */
+ /*                      Mimar Sinan GÃ¼zel Sanatlar Ãœnv.        */
+ /****************************************************************/
+
 proc cluster data=nutrient simple method=centroid RMSSTD RSQUARE nonorm outtree=centroid; 
 
 /*method="average","complete", "single" ya da "centroid" */
 /*SIMPLE basit istatistikelri verir,
-  RMSSTD her küme için root-mean-square standard deviation verir, 
-  RSQUARE  küme çözümleri için R2 and semipartial R2 değerlerini verir.
-  NONORM uzaklıkları normalleştirmeden verir. */ 
+  RMSSTD her kÃ¼me iÃ§in root-mean-square standard deviation verir, 
+  RSQUARE  kÃ¼me Ã§Ã¶zÃ¼mleri iÃ§in R2 and semipartial R2 deÄŸerlerini verir.
+  NONORM uzaklÄ±klarÄ± normalleÅŸtirmeden verir. */ 
 
-ID Food_Item; /*ID gözlemlerin isimlerini görüntülemek için*/
-VAR Calories Protein Fat Calcium Iron; /*Analize girecek değişkenlerin adları*/
+ID Food_Item; /*ID gÃ¶zlemlerin isimlerini gÃ¶rÃ¼ntÃ¼lemek iÃ§in*/
+VAR Calories Protein Fat Calcium Iron; /*Analize girecek deÄŸiÅŸkenlerin adlarÄ±*/
 run;
 
-data nutrient2; /*Aykırı değer olan Canned Sardine gözleminin veri setinden çıkarılması*/
+data nutrient2; /*AykÄ±rÄ± deÄŸer olan Canned Sardine gÃ¶zleminin veri setinden Ã§Ä±karÄ±lmasÄ±*/
 set nutrient;
 if Food_Item not in ('Canned sardines');
 run;
 proc cluster data=nutrient2 simple method=centroid RMSSTD RSQUARE nonorm out=tree; 
-ID Food_Item; /*ID gözlemlerin isimlerini görüntülemek için*/
-VAR Calories Protein Fat Calcium Iron; /*Analize girecek değişkenlerin adları*/
+ID Food_Item; /*ID gÃ¶zlemlerin isimlerini gÃ¶rÃ¼ntÃ¼lemek iÃ§in*/
+VAR Calories Protein Fat Calcium Iron; /*Analize girecek deÄŸiÅŸkenlerin adlarÄ±*/
 run;
 
-proc tree data=tree out=clust nclusters=3; /*dendogram çizimi prosedürü*/
-/*NCLUSTERS= OUT= içinde olması istenen küme sayısı*/
+proc tree data=tree out=clust nclusters=3; /*dendogram Ã§izimi prosedÃ¼rÃ¼*/
+/*NCLUSTERS= OUT= iÃ§inde olmasÄ± istenen kÃ¼me sayÄ±sÄ±*/
 Id Food_Item;
 copy Calories--Iron;
 run;
@@ -28,14 +36,14 @@ run;
 proc sort; by cluster;
 proc print; by cluster;
 var Calories Protein Fat Calcium Iron;
-title '3 Küme için Çözüm';
+title '3 KÃ¼me iÃ§in Ã‡Ã¶zÃ¼m';
 run;
 
-proc means data=clust; /* Değişkenlerin küme ortalamaları */
+proc means data=clust; /* DeÄŸiÅŸkenlerin kÃ¼me ortalamalarÄ± */
 var Calories Protein Fat Calcium Iron;
 by cluster;
 run;
-proc glm data=clust; /*Değişkenlerin kümelemede anlamlı olup olmadığını görmek için glm komutu kullanılıyor */
+proc glm data=clust; /*DeÄŸiÅŸkenlerin kÃ¼melemede anlamlÄ± olup olmadÄ±ÄŸÄ±nÄ± gÃ¶rmek iÃ§in glm komutu kullanÄ±lÄ±yor */
 class cluster;
 model Calcium=cluster;
 run;
